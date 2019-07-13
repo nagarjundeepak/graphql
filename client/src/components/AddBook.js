@@ -1,15 +1,15 @@
 import React,{useState} from 'react';
-import {graphql} from 'react-apollo';
+import {graphql,compose} from 'react-apollo';
 
-import {getAuthorsQuery} from '../queries/queries';
+import {getAuthorsQuery,addBookMutation} from '../queries/queries';
 
 
 function AddBook(props){
 
     // getting data from server
-    const authors = props.data.authors;
+    const authors = props.getAuthorsQuery.authors;
     function dd(){
-        if(props.data.loading){
+        if(props.getAuthorsQuery.loading){
             return <div>Loading...</div>
         }
         else{
@@ -26,7 +26,16 @@ function AddBook(props){
 
     const handleSubmit=(e)=>{
         e.preventDefault();
-        console.log(name, genre, authorId);
+        props.addBookMutation({
+            variables: {
+                name,
+                genre,
+                authorId
+            }
+        });
+        console.log('data added!');
+        setName('');
+        setGenre('');
     }
 
     return(
@@ -52,4 +61,7 @@ function AddBook(props){
     )
 }
 
-export default graphql(getAuthorsQuery)(AddBook);
+export default compose(
+    graphql(getAuthorsQuery, {name: "getAuthorsQuery"}),
+    graphql(addBookMutation,{name: "addBookMutation"})
+)(AddBook);
