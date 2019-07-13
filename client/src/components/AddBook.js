@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import {graphql,compose} from 'react-apollo';
 
-import {getAuthorsQuery,addBookMutation} from '../queries/queries';
+import {getAuthorsQuery,addBookMutation, getAllBooksQuery} from '../queries/queries';
 
 
 function AddBook(props){
@@ -31,9 +31,9 @@ function AddBook(props){
                 name,
                 genre,
                 authorId
-            }
+            },            
+        refetchQueries: [{query: getAllBooksQuery}]
         });
-        console.log('data added!');
         setName('');
         setGenre('');
     }
