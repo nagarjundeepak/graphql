@@ -27,7 +27,7 @@ const addBookMutation = gql`
 `
 
 const getSingleBookQuery = gql`
-    query($id: String){
+    query($id: ID){
         book(id:$id){
             name
             genre
