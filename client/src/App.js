@@ -8,11 +8,11 @@ import BookList  from './components/BookList';
 // apoolo client setup
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql'
-})
+});
 
 function App() {
   return (
-    <ApolloProvider>
+    <ApolloProvider client={client}>
     <div id="main">
       <h1>React GraphQL MongoDB App</h1>
       <hr/>
