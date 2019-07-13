@@ -1,15 +1,7 @@
 import React from 'react';
-import {gql} from 'apollo-boost';
 import {graphql} from 'react-apollo';
 
-const getAllBooksQuery = gql`
-    {
-        books{
-            name
-            id
-        }
-    }
-`
+import {getAllBooksQuery} from '../queries/queries';
 
 function BookList(props){
     const books = props.data.books;
